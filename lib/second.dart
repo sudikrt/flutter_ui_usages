@@ -1,10 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-void main () {
-
-}
-
 final ThemeData IOSTHEME = new ThemeData(
   primarySwatch: Colors.red[400],
   primaryColor: Colors.grey,
@@ -16,7 +12,7 @@ final ThemeData DefaultTheme = new ThemeData(
   accentColor: Colors.orangeAccent[400]
 );
 
-class DesignApp extends StatelessWidget {
+class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +39,10 @@ class GeekAppState extends State<GeekApp> {
     return new Scaffold(
       appBar: new AppBar(
         leading: new IconButton(
-            icon: new Icon(Icons.android),
-            tooltip: "NavigatioMenu",
-            onPressed: null),
+          color: Colors.white,
+          icon: new Icon(Icons.arrow_back),
+          onPressed: () => Navigator.canPop(context)
+        ),
         title: new Text('Some Text'),
         actions: <Widget> [
           new IconButton(

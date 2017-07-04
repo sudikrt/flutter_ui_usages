@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'second.dart';
+
 void main () {
   runApp(new DesignApp());
 }
@@ -45,6 +47,9 @@ enum _DesignTab { android, ios }
 
 class GeekAppState extends State<GeekApp> {
 
+  static const List<String> portfolioSymbols = const <String>["AAPL","FIZZ", "FIVE", "FLAT", "ZINC", "ZNGA"];
+
+
   final TextEditingController _controller = new TextEditingController();
   bool _isComposing = false;
   bool _isSearch = false;
@@ -57,12 +62,16 @@ class GeekAppState extends State<GeekApp> {
             drawer: _buildDrawer(),
             appBar: _isSearch ? _buildSearchBar() :_buildAppBar(),
             body:new TabBarView (
-              controller: null,
-              children: <Widget>[],
+              children: <Widget>[
+                _buildStockTab (context, _DesignTab.android, portfolioSymbols),
+                _buildStockTab (context, _DesignTab.ios, portfolioSymbols)
+              ],
             ),
         )
     );
   }
+
+
 
   /*
   new Container(
@@ -114,7 +123,11 @@ class GeekAppState extends State<GeekApp> {
           new ListTile(
             title: new Text('Settings'),
             leading: new Icon(Icons.settings),
-            onTap: null,
+            onTap: () {
+              Navigator.push(context,
+                new MaterialPageRoute(builder: (_) => new SecondPage())
+              );
+            },
             onLongPress: null,
           ),
           new ListTile(
@@ -275,6 +288,13 @@ class GeekAppState extends State<GeekApp> {
     );
   }
 
+  Widget _buildStockTab(BuildContext context, _DesignTab tab, List<String> portfolioSymbols) {
 
-
+    return new ListView.builder(
+      key: new ValueKey<_DesignTab>(tab),
+      itemBuilder: (_, int index) => new Text(portfolioSymbols[index]),
+      itemCount: portfolioSymbols.length,
+    );
+  }
 }
+
